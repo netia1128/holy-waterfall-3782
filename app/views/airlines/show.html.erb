@@ -2,6 +2,16 @@
 
 <h3>Adult Passengers on Flights</h3>
 
-<ul><% @adult_passengers.each do |passenger| %>
-  <li><%= passenger.name%></li>
-<% end %></ul>
+<table style="width: 30%" id='airline-adult-passengers'>
+  <tr>
+    <th>Passenger</th>
+    <th>Flights Taken</th>
+  </tr>
+  <tr>
+    <% @adult_passengers.each do |passenger| %>
+      <tr>
+        <td><%= passenger.name %></td>
+        <td><%= passenger.flight_count %></td>
+    <% end %>
+  </tr>
+</table>
