@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Flight, type: :model do
+RSpec.describe 'invoices index page', type: :feature do
   before(:each) do
     @spirit = Airline.create!(name: "Spirit Air")
     @flight1 = @spirit.flights.create!(number: 970, date: "June 27th, 2021", departure_city: "Denver", arrival_city: "Fort Lauderdale")
@@ -23,23 +23,34 @@ RSpec.describe Flight, type: :model do
     FlightPassenger.create!(flight: @flight2, passenger: @passenger6)
   end
 
-  it {should belong_to :airline}
-  it {should have_many :passengers}
+  describe 'page appearance' do
+    it 'has a list of all flight numbers' do
+      visit '/flights'
 
-  describe 'instance methods' do
-    describe 'airline_name' do
-      it 'should return the name of an airline for a given flight' do
-        expect(@flight1.airline_name).to eq('Spirit Air')
-      end
+      expect(page).to have_content(@flight1.number)
+      expect(page).to have_content(@flight2.number)
     end
-    describe 'passengers' do
-      it 'should return the names of all the passengers for a given flight' do
-        expect(@flight1.passengers).to eq([@passenger1.name,
-                                           @passenger2.name,
-                                           @passenger3.name,
-                                           @passenger4.name,
-                                           @passenger5.name])
+    it 'next to each flight number I see the name of the Airline of that flight' do
+      visit '/flights'
+
+      expect(page).to have_content(@spirit.name)
+    end
+    it 'next to each flight number I see the names of all that flights passengers' do
+      visit '/flights'
+      # save_and_open_page
+
+      within "#flight-index > tr:nth-child(3)" do
+        expect(page).to have_content(@passenger1.name)
+        expect(page).to have_content(@passenger2.name)
+        expect(page).to have_content(@passenger3.name)
+        expect(page).to have_content(@passenger4.name)
+        expect(page).to have_content(@passenger5.name)
+        expect(page).to_not have_content(@passenger6.name)
       end
     end
   end
+
+  describe 'page functionality' do
+  end
+
 end
