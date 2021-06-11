@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Airline, type: :model do
+RSpec.describe 'show page', type: :feature do
   before(:each) do
     @spirit = Airline.create!(name: "Spirit Air")
     @flight1 = @spirit.flights.create!(number: 970, date: "June 27th, 2021", departure_city: "Denver", arrival_city: "Fort Lauderdale")
@@ -23,14 +23,16 @@ RSpec.describe Airline, type: :model do
     FlightPassenger.create!(flight: @flight2, passenger: @passenger6)
   end
 
-  it {should have_many :flights}
-  it {should have_many :passengers}
+  describe 'page appearance' do
+    it 'lists all the adult passengers on any of the airlines flights' do
+      visit "/airlines/#{@spirit.id}"
 
-  describe 'instance methods' do
-    describe '#adult_passengers' do
-      it 'returns all adult passengers on any flight for the airline with no duplicates' do
-        expect(@spirit.adult_passengers).to eq([@passenger5, @passenger1, @passenger2])
-      end
+      expect(page).to have_content(@passenger1.name)
+      expect(page).to have_content(@passenger2.name)
+      expect(page).to_not have_content(@passenger3.name)
+      expect(page).to_not have_content(@passenger4.name)
+      expect(page).to have_content(@passenger5.name)
+      expect(page).to_not have_content(@passenger6.name)
     end
   end
 end

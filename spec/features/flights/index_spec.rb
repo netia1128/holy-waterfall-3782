@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'invoices index page', type: :feature do
+RSpec.describe 'index page', type: :feature do
   before(:each) do
     @spirit = Airline.create!(name: "Spirit Air")
     @flight1 = @spirit.flights.create!(number: 970, date: "June 27th, 2021", departure_city: "Denver", arrival_city: "Fort Lauderdale")

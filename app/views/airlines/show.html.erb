@@ -1,0 +1,7 @@
+<h1><%= "#{@airline.name}" %></h1>
+
+<h3>Adult Passengers on Flights</h3>
+
+<ul><% @adult_passengers.each do |passenger| %>
+  <li><%= passenger.name%></li>
+<% end %></ul>
