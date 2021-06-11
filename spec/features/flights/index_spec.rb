@@ -51,6 +51,28 @@ RSpec.describe 'invoices index page', type: :feature do
   end
 
   describe 'page functionality' do
+    it 'has a link next to each passenger that allows you to remove them from the flight
+        the page should redirect to the flights index once you remove a passanger
+        and although the passenger should be removed from the flight, the passenger object should still exist' do
+      visit '/flights'
+
+      within "#flight-index > tr:nth-child(3)" do
+        expect(page).to have_content(@passenger5.name)
+        click_link('Remove Big Bird')
+      end
+
+      expect(current_path).to eq('/flights')
+
+      within "#flight-index > tr:nth-child(3)" do
+        expect(page).to have_content(@passenger1.name)
+        expect(page).to have_content(@passenger2.name)
+        expect(page).to have_content(@passenger3.name)
+        expect(page).to have_content(@passenger4.name)
+        expect(page).to_not have_content(@passenger5.name)
+      end
+
+      expect(@passenger5.name).to eq('Big Bird')
+    end
   end
 
 end

@@ -34,11 +34,11 @@ RSpec.describe Flight, type: :model do
     end
     describe 'passengers' do
       it 'should return the names of all the passengers for a given flight' do
-        expect(@flight1.passengers).to eq([@passenger1.name,
-                                           @passenger2.name,
-                                           @passenger3.name,
-                                           @passenger4.name,
-                                           @passenger5.name])
+        expect(@flight1.passengers).to eq([@passenger1,
+                                           @passenger2,
+                                           @passenger3,
+                                           @passenger4,
+                                           @passenger5])
       end
     end
   end

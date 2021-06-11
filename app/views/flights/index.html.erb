@@ -12,7 +12,9 @@
         <td><%= flight.number %></td>
         <td><%= flight.airline_name %></td>
         <td><ul><% flight.passengers.each do |passenger| %>
-            <li><%= passenger %></li>
+            <li><%= passenger.name %>
+            <%= link_to "Remove #{passenger.name}", flight_flight_passenger_path(flight, passenger), method: :delete %>
+            </li>
           <% end %>
         </ul></td>
     <% end %>

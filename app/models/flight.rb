@@ -9,6 +9,6 @@ class Flight < ApplicationRecord
 
   def passengers
     passenger_ids = flight_passengers.pluck(:passenger_id)
-    Passenger.where(id: passenger_ids).pluck(:name)
+    Passenger.where(id: passenger_ids)
   end
 end
